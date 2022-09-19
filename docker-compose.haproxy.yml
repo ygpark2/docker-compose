@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  HAProxy:
+    image: haproxy:latest
+    container_name: HAProxy
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8070:8070"
+    restart: always
+    volumes:
+      - ./conf/haproxy/haproxy_ssl:/etc/ssl/certs
+      - ./conf/haproxy/haproxy_cfg:/usr/local/etc/haproxy
+    # stdin_open: true
+    # tty: true
+    networks:
+      - default
+
+networks: 
+  default:

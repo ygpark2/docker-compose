@@ -1,0 +1,64 @@
+
+version: '3.7'
+
+# Define services
+services:
+  pulsarcore:
+    image: apachepulsar/pulsar:2.8.1
+    restart: always
+    container_name: pulsar
+    ports:
+      - 8095:8080
+      - 6650:6650
+    environment:
+      PULSAR_MEM: " -Xms512m -Xmx512m -XX:MaxDirectMemorySize=1g"
+    volumes:
+      # - ./data/pulsar/data:/pulsar/data
+      # - ./data/pulsar/conf:/pulsar/conf
+      - pulsardata:/pulsar/data
+      - pulsarconf:/pulsar/conf
+    command: bin/pulsar standalone
+    networks:
+      - backend
+
+  pulsaradmin:
+    image: apachepulsar/pulsar-manager:v0.2.0
+    container_name: pulsar_dashboard
+    restart: always
+    ports:
+      - 9527:9527
+      - 7750:7750
+    depends_on:
+      - pulsarcore
+      - postgres
+    environment:
+      # SPRING_CONFIGURATION_FILE: ./conf/pulsar/application.properties:/pulsar-manager/pulsar-manager/application.properties
+      SPRING_CONFIGURATION_FILE: /pulsar-manager/pulsar-manager/application.properties
+    networks:
+      - backend
+
+  postgres:
+    image: postgres:latest
+    container_name: pulsar_postgres
+    volumes:
+      - ./data/pulsar_postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: pulsar_manager
+      POSTGRES_USER: pulsar_user_2@#%@
+      POSTGRES_PASSWORD: pulsar_password_&^#&@
+      POSTGRES_ROOT_PASSWORD: pulsar_root_23#@!4_password
+    healthcheck:
+      test: ["CMD", "pg_isready"]
+    restart: always
+    networks:
+      - backend
+
+volumes:
+  pulsardata:
+  pulsarconf:
+
+# Networks to be created to facilitate communication between containers
+networks:
+  backend:
+    # name: backend
+    # driver: bridge
