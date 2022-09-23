@@ -21,6 +21,17 @@ down-pulsar:
 rm-pulsar:
 	docker-compose -f ./docker-compose.pulsar.yml rm
 
+
+up-haproxy:
+	docker-compose -f ./docker-compose.haproxy.yml up
+
+down-haproxy:
+	docker-compose -f ./docker-compose.haproxy.yml down
+
+rm-haproxy:
+	docker-compose -f ./docker-compose.haproxy.yml rm
+
+
 down:
 	docker-compose down
 
