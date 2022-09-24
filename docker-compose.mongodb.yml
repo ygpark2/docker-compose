@@ -5,7 +5,7 @@ services:
     container_name: jungto_mongodb
     image: mongo:latest
     ports:
-      - "27018:27017"
+      - "27017:27017"
     env_file:
       - ./conf/mongodb/dev.env
     volumes:

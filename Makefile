@@ -14,7 +14,7 @@ upp:
 
 
 upd-mongodb:
-	docker-compose -f ./docker-compose.mongodb.yml -d up
+	docker-compose -f ./docker-compose.mongodb.yml up -d
 
 up-mongodb:
 	docker-compose -f ./docker-compose.mongodb.yml up
@@ -24,6 +24,9 @@ down-mongodb:
 
 rm-mongodb:
 	docker-compose -f ./docker-compose.mongodb.yml rm
+
+ps-mongodb:
+	docker-compose -f ./docker-compose.mongodb.yml ps
 
 
 up-pulsar:
@@ -35,6 +38,10 @@ down-pulsar:
 rm-pulsar:
 	docker-compose -f ./docker-compose.pulsar.yml rm
 
+ps-pulsar:
+	docker-compose -f ./docker-compose.pulsar.yml ps
+
+
 
 up-haproxy:
 	docker-compose -f ./docker-compose.haproxy.yml up
@@ -44,6 +51,9 @@ down-haproxy:
 
 rm-haproxy:
 	docker-compose -f ./docker-compose.haproxy.yml rm
+
+ps-haproxy:
+	docker-compose -f ./docker-compose.haproxy.yml ps
 
 
 down:
