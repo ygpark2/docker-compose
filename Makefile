@@ -12,6 +12,17 @@ up:
 upp:
 	docker-compose -f ./docker-compose.yml -f ./docker-compose.pulsar.yml up --build --remove-orphans
 
+
+up-mongodb:
+	docker-compose -f ./docker-compose.mongodb.yml up
+
+down-mongodb:
+	docker-compose -f ./docker-compose.mongodb.yml down
+
+rm-mongodb:
+	docker-compose -f ./docker-compose.mongodb.yml rm
+
+
 up-pulsar:
 	docker-compose -f ./docker-compose.pulsar.yml up
 
