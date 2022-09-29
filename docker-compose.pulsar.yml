@@ -41,7 +41,7 @@ services:
     image: postgres:latest
     container_name: pulsar_postgres
     volumes:
-      - ./data/pulsar_postgres_data:/var/lib/postgresql/data
+      - ./data/pulsar/postgres_data:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: pulsar_manager
       POSTGRES_USER: pulsar_user_2@#%@
