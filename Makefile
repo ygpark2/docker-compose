@@ -89,6 +89,7 @@ load-haproxy-images:
 	docker load -i docker-haproxy-images.tar
 
 
+# =========================================== KEPCO ===================================================
 up-kepco-haproxy:
 	docker-compose -f ./docker-compose.haproxy.kepco.yml up
 
@@ -106,6 +107,20 @@ save-kepco-haproxy-images:
 
 load-kepco-haproxy-images:
 	docker load -i docker-kepco-haproxy-images.tar
+
+
+up-kepco-gogs:
+	docker-compose -f ./docker-compose.haproxy.kepco.yml -f ./docker-compose.gogs.kepco.yml up
+
+down-kepco-gogs:
+	docker-compose -f ./docker-compose.haproxy.kepco.yml -f ./docker-compose.gogs.kepco.yml down
+
+rm-kepco-gogs:
+	docker-compose -f ./docker-compose.haproxy.kepco.yml -f ./docker-compose.gogs.kepco.yml rm
+
+ps-kepco-gogs:
+	docker-compose -f ./docker-compose.haproxy.kepco.yml -f ./docker-compose.gogs.kepco.yml ps
+
 
 up:
 	docker-compose up

@@ -1,0 +1,39 @@
+version: '3.7'
+
+services:
+    postgres:
+      image: postgres:latest
+      restart: always
+      environment:
+       - "POSTGRES_USER=${POSTGRES_USER}"
+       - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
+       - "POSTGRES_DB=gogs"
+      volumes:
+       - "./data/gogs/db:/var/lib/postgresql/data"
+      networks:
+       - kepco
+
+    gogs:
+      image: gogs/gogs:latest
+      restart: always
+      ports:
+       - "10022:22"
+       - "3000:3000"
+      links:
+       - postgres
+      environment:
+       - "RUN_CROND=true"
+       - "ADMIN_USER_CREATE=true"
+       - "ADMIN_USER_NAME=admin"
+       - "ADMIN_USER_PASSWORD=admin2345"
+       - "ADMIN_USER_EMAIL=ygpark2@kakao.com"
+      networks:
+       - kepco
+      volumes:
+       - "./data/gogs/data:/data"
+      depends_on:
+       - postgres
+
+networks:
+    kepco:
+      driver: bridge
