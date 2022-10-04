@@ -2,8 +2,12 @@ version: "3.8"
 
 services:
   HAProxy:
-    image: haproxy:lts-alpine
+    image: kepco-haproxy:latest
     container_name: HAProxy
+    build:
+      context: ${DOCKERFILE_PATH:-./dockerfile/kepco/haproxy/}
+      dockerfile: Dockerfile
+      target: DEFAULT
     ports:
       - "80:80"
       - "443:443"
@@ -11,7 +15,7 @@ services:
     restart: always
     volumes:
       - ./conf/haproxy/certs:/etc/ssl/certs
-      - ./conf/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+      - ./conf/haproxy/haproxy kepco.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
     # stdin_open: true
     # tty: true
     networks:
