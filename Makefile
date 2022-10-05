@@ -121,6 +121,13 @@ rm-kepco-gogs:
 ps-kepco-gogs:
 	docker-compose --env-file ./conf/gogs/env -f ./docker-compose.haproxy.kepco.dev.yml -f ./docker-compose.gogs.kepco.yml ps
 
+save-kepco-gogs-images:
+	docker save -o docker-kepco-gogs-images.tar $(docker-compose --env-file conf/haproxy/env -f ./docker-compose.haproxy.kepco.dev.yml -f ./docker-compose.gogs.kepco.yml config | awk '{if ($1 == "image:") print $2;}')
+
+load-kepco-gogs-images:
+	docker load -i docker-kepco-gogs-images.tar
+
+
 
 up:
 	docker-compose up
