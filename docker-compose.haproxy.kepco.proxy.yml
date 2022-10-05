@@ -15,7 +15,7 @@ services:
     restart: always
     volumes:
       - ./conf/haproxy/certs:/etc/ssl/certs
-      - ./conf/haproxy/haproxy.kepco.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+      - ./conf/haproxy/haproxy.kepco.proxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
     # stdin_open: true
     # tty: true
     networks:
@@ -35,7 +35,7 @@ services:
     environment: # Pass environment variables to the service
       TZ: Asia/Seoul
     volumes:
-      - ./data/www/toc.wo.tc:/home/static/www
+      - ./data/www/kepco:/home/static/www
       - ./conf/httpd.conf:/home/static/httpd.conf
     networks:
       - kepco

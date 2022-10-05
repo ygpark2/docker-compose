@@ -91,35 +91,35 @@ load-haproxy-images:
 
 # =========================================== KEPCO ===================================================
 up-kepco-haproxy:
-	docker-compose -f ./docker-compose.haproxy.kepco.yml up
+	docker-compose -f ./docker-compose.haproxy.kepco.proxy.yml up
 
 down-kepco-haproxy:
-	docker-compose -f ./docker-compose.haproxy.kepco.yml down
+	docker-compose -f ./docker-compose.haproxy.kepco.proxy.yml down
 
 rm-kepco-haproxy:
-	docker-compose -f ./docker-compose.haproxy.kepco.yml rm
+	docker-compose -f ./docker-compose.haproxy.kepco.proxy.yml rm
 
 ps-kepco-haproxy:
-	docker-compose -f ./docker-compose.haproxy.kepco.yml ps
+	docker-compose -f ./docker-compose.haproxy.kepco.proxy.yml ps
 
 save-kepco-haproxy-images:
-	docker save -o docker-kepco-haproxy-images.tar $(docker-compose --env-file conf/haproxy/env -f ./docker-compose.haproxy.kepco.yml config | awk '{if ($1 == "image:") print $2;}')
+	docker save -o docker-kepco-haproxy-images.tar $(docker-compose --env-file conf/haproxy/env -f ./docker-compose.haproxy.kepco.proxy.yml config | awk '{if ($1 == "image:") print $2;}')
 
 load-kepco-haproxy-images:
 	docker load -i docker-kepco-haproxy-images.tar
 
 
 up-kepco-gogs:
-	docker-compose -f ./docker-compose.haproxy.kepco.yml -f ./docker-compose.gogs.kepco.yml up
+	docker-compose --env-file ./conf/gogs/env -f ./docker-compose.haproxy.kepco.dev.yml -f ./docker-compose.gogs.kepco.yml up
 
 down-kepco-gogs:
-	docker-compose -f ./docker-compose.haproxy.kepco.yml -f ./docker-compose.gogs.kepco.yml down
+	docker-compose --env-file ./conf/gogs/env -f ./docker-compose.haproxy.kepco.dev.yml -f ./docker-compose.gogs.kepco.yml down
 
 rm-kepco-gogs:
-	docker-compose -f ./docker-compose.haproxy.kepco.yml -f ./docker-compose.gogs.kepco.yml rm
+	docker-compose --env-file ./conf/gogs/env -f ./docker-compose.haproxy.kepco.dev.yml -f ./docker-compose.gogs.kepco.yml rm
 
 ps-kepco-gogs:
-	docker-compose -f ./docker-compose.haproxy.kepco.yml -f ./docker-compose.gogs.kepco.yml ps
+	docker-compose --env-file ./conf/gogs/env -f ./docker-compose.haproxy.kepco.dev.yml -f ./docker-compose.gogs.kepco.yml ps
 
 
 up:
