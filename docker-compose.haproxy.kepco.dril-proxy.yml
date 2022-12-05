@@ -1,0 +1,47 @@
+version: "3.8"
+
+services:
+  HAProxy:
+    image: kepco-haproxy:latest
+    container_name: HAProxy
+    build:
+      context: ${DOCKERFILE_PATH:-./dockerfile/kepco/haproxy/}
+      dockerfile: Dockerfile
+      target: DEFAULT
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8070:8070"
+    restart: always
+    volumes:
+      - ./conf/haproxy/certs:/etc/ssl/certs
+      - ./conf/haproxy/haproxy.kepco.dril-proxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    # stdin_open: true
+    # tty: true
+    networks:
+      - kepco
+
+  web-server:
+    container_name: busybox_web_server
+    image: busybox_web_server:latest
+    build:
+      context: ${DOCKERFILE_PATH:-./dockerfile/busybox/}
+      dockerfile: Dockerfile
+      target: DEFAULT
+    restart: always
+    working_dir: /home/static
+    user: static
+    entrypoint: /busybox httpd -f -v -p 3000 -h /home/static/www -c /home/static/httpd.conf
+    environment: # Pass environment variables to the service
+      TZ: Asia/Seoul
+    volumes:
+      - ./data/www/kepco:/home/static/www
+      - ./conf/httpd.conf:/home/static/httpd.conf
+    networks:
+      - kepco
+
+
+networks:
+    kepco:
+      driver: bridge
+

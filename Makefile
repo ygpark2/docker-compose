@@ -89,24 +89,44 @@ load-haproxy-images:
 	docker load -i docker-haproxy-images.tar
 
 
-# =========================================== KEPCO ===================================================
-up-kepco-haproxy:
-	docker-compose -f ./docker-compose.haproxy.kepco.proxy.yml up
+# =========================================== KEPCO dril proxy ===================================================
+up-kepco-dril-haproxy:
+	docker-compose -f ./docker-compose.haproxy.kepco.dril-proxy.yml up
 
-down-kepco-haproxy:
-	docker-compose -f ./docker-compose.haproxy.kepco.proxy.yml down
+down-kepco-dril-haproxy:
+	docker-compose -f ./docker-compose.haproxy.kepco.dril-proxy.yml down
 
-rm-kepco-haproxy:
-	docker-compose -f ./docker-compose.haproxy.kepco.proxy.yml rm
+rm-kepco-dril-haproxy:
+	docker-compose -f ./docker-compose.haproxy.kepco.dril-proxy.yml rm
 
-ps-kepco-haproxy:
-	docker-compose -f ./docker-compose.haproxy.kepco.proxy.yml ps
+ps-kepco-dril-haproxy:
+	docker-compose -f ./docker-compose.haproxy.kepco.dril-proxy.yml ps
 
-save-kepco-haproxy-images:
-	docker save -o docker-kepco-haproxy-images.tar $(docker-compose --env-file conf/haproxy/env -f ./docker-compose.haproxy.kepco.proxy.yml config | awk '{if ($1 == "image:") print $2;}')
+save-kepco-dril-haproxy-images:
+	docker save -o docker-kepco-dril-haproxy-images.tar $(docker-compose --env-file conf/haproxy/env -f ./docker-compose.haproxy.kepco.dril-proxy.yml config | awk '{if ($1 == "image:") print $2;}')
 
-load-kepco-haproxy-images:
-	docker load -i docker-kepco-haproxy-images.tar
+load-kepco-dril-haproxy-images:
+	docker load -i docker-kepco-dril-haproxy-images.tar
+
+
+# =========================================== KEPCO boho proxy ===================================================
+up-kepco-boho-haproxy:
+	docker-compose -f ./docker-compose.haproxy.kepco.boho-proxy.yml up
+
+down-kepco-boho-haproxy:
+	docker-compose -f ./docker-compose.haproxy.kepco.boho-proxy.yml down
+
+rm-kepco-boho-haproxy:
+	docker-compose -f ./docker-compose.haproxy.kepco.boho-proxy.yml rm
+
+ps-kepco-boho-haproxy:
+	docker-compose -f ./docker-compose.haproxy.kepco.boho-proxy.yml ps
+
+save-kepco-boho-haproxy-images:
+	docker save -o docker-kepco-boho-haproxy-images.tar $(docker-compose --env-file conf/haproxy/env -f ./docker-compose.haproxy.kepco.boho-proxy.yml config | awk '{if ($1 == "image:") print $2;}')
+
+load-kepco-boho-haproxy-images:
+	docker load -i docker-kepco-boho-haproxy-images.tar
 
 
 up-kepco-gogs:
